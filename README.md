@@ -5,10 +5,23 @@ Sistem Pemesanan Makanan Online berbasis web yang dibangun menggunakan PHP untuk
 
 ## Daftar Isi
 
+- [File Structure](#file-structure)
 - [Fitur Utama](#fitur-utama)
 - [Struktur Database](#struktur-database)
 - [Run Project](#run-project)
 - [Authors](#authors)
+
+## File Structure
+
+sistem-pemesanan-makanan-online/
+├── account/               (Directory for user account related files)
+├── assets/                (Directory for static files like CSS, JavaScript, images)
+├── sql/
+│   └── food_ordering.sql  (Database import file)
+├── includes/
+│   └── config.php         (Database and application configuration file)
+├── index.php              (Main entry point of the application)
+└── README.md              (Project documentation)
 
 ## Fitur Utama
 
@@ -68,6 +81,7 @@ define('BASE_URL', 'http://localhost/sistem-pemesanan-makanan-online/');
 ```
 ### 5. Jalankan Aplikasi
 Akses URL ini dibrowser `http://localhost/sistem-pemesanan-makanan-online/index.php`
+
 ## Authors
 Kelompok 2 PBO
 - [Chendra Frendianata](https://www.github.com/ChendFrend) - 422025003
