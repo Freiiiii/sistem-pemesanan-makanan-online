@@ -85,6 +85,6 @@ Akses URL ini dibrowser `http://localhost/sistem-pemesanan-makanan-online/index.
 ## Authors
 Kelompok 2 PBO
 - [Chendra Frendianata](https://www.github.com/ChendFrend) - 422025003
-- [Adib Sarwaguna](#) - 422025006
+- [Adib Sarwaguna](https://www.github.com/adibsarwaguna5-star) - 422025006
 - [Yoel Christanto Nugroho](https://github.com/yoel422025011-ui) - 422025011
 - [Felix Ji Sui Thian](https://github.com/Freiiiii) - 422025025
