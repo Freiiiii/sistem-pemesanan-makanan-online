@@ -1,7 +1,8 @@
 <?php
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
-// redirect jika sudah login
+
+// Redirect jika sudah login
 if (isLoggedIn()) {
     $user = getCurrentUser();
     header('Location: ' . ($user['role'] === 'admin' ? 'admin.php' : 'customer.php'));
@@ -10,6 +11,8 @@ if (isLoggedIn()) {
 
 $error = '';
 $success = '';
+$new_user_id = null;
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name             = sanitize($_POST['name'] ?? '');
@@ -19,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address          = sanitize($_POST['address'] ?? '');
     $password         = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
+    
     // Validasi input
     if (strlen($name) < 3) {
         $error = 'Nama minimal 3 karakter.';
@@ -32,20 +36,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Format email tidak valid.';
     } else {
         $conn = getDB();
+        
+        // Check availibilitas username
         $chk = $conn->prepare("SELECT id FROM users WHERE username = ?");
         $chk->bind_param("s", $username);
         $chk->execute();
-        // Cek apakah username sudah ada
-        if ($chk->get_result()->num_rows > 0) {
+        $result = $chk->get_result();
+        
+        if ($result->num_rows > 0) {
             $error = 'Username sudah digunakan.';
         } else {
             $hashed = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Explicit column list
             $stmt = $conn->prepare("INSERT INTO users (name, username, password, email, phone, address, role, verified) VALUES (?, ?, ?, ?, ?, ?, 'customer', 1)");
             $stmt->bind_param("ssssss", $name, $username, $hashed, $email, $phone, $address);
+            
             if ($stmt->execute()) {
-                $success = 'Registrasi berhasil! Silakan login.';
+                // Get the newly created user ID
+                $new_user_id = $conn->insert_id;
+                
+                if ($new_user_id > 0) {
+                    $success = 'Registrasi berhasil! Silakan login.';
+                } else {
+                    $error = 'Registrasi gagal. ID pengguna tidak valid.';
+                }
             } else {
-                $error = 'Registrasi gagal. Coba lagi.';
+                $error = 'Registrasi gagal: ' . $conn->error;
             }
         }
     }
