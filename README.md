@@ -69,6 +69,15 @@ define('BASE_URL', 'http://localhost/sistem-pemesanan-makanan-online/');
 ### 5. Jalankan Aplikasi
 Akses URL ini dibrowser `http://localhost/sistem-pemesanan-makanan-online/index.php`
 
+### Login
+Admin User
+- Username: Admin
+- Password: Admin
+
+Customer User
+- Username: customer1, customer2, test1
+- Password: 123123
+
 ## Authors
 Kelompok 2 PBO
 - [Chendra Frendianata](https://www.github.com/ChendFrend) - 422025003
